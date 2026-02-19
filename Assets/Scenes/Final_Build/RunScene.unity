@@ -838,21 +838,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2126080975497663715, guid: e1d5e633490a4fa4890b3c060b41dc2c, type: 3}
-      propertyPath: enemyPrefab
-      value: 
-      objectReference: {fileID: 2662955696428283969, guid: 95872d78cf63c2544b5024c2408c10e7, type: 3}
-    - target: {fileID: 2126080975497663715, guid: e1d5e633490a4fa4890b3c060b41dc2c, type: 3}
-      propertyPath: playerPrefab
-      value: 
-      objectReference: {fileID: 2539163584508299081, guid: 4c6c57d7286b3c24094012a92a5089c2, type: 3}
-    - target: {fileID: 2126080975497663715, guid: e1d5e633490a4fa4890b3c060b41dc2c, type: 3}
       propertyPath: playerSpawnPoint
       value: 
       objectReference: {fileID: 1954740425}
-    - target: {fileID: 2126080975497663715, guid: e1d5e633490a4fa4890b3c060b41dc2c, type: 3}
-      propertyPath: enemySpawnPoints.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 2126080975497663715, guid: e1d5e633490a4fa4890b3c060b41dc2c, type: 3}
       propertyPath: 'enemySpawnPoints.Array.data[0]'
       value: 

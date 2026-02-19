@@ -112,7 +112,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8be959103f932b46a944dbfbe421263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RunManager
-  playerPrefab: {fileID: 0}
-  enemyPrefab: {fileID: 0}
+  playerPrefab: {fileID: 2539163584508299081, guid: 4c6c57d7286b3c24094012a92a5089c2, type: 3}
+  enemyPrefab: {fileID: 2662955696428283969, guid: 95872d78cf63c2544b5024c2408c10e7, type: 3}
   playerSpawnPoint: {fileID: 0}
-  enemySpawnPoints: []
+  enemySpawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
