@@ -78,6 +78,8 @@ public class RunManager : MonoBehaviour
 
         currentPlayer.InitializeStats(playerHealth, playerResistance);
         allEntities.Add(currentPlayer);
+
+        EventManager.Instance.PlayerSpawned(currentPlayer);
     }
 
     private void SpawnEnemies()

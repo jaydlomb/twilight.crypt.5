@@ -26,7 +26,7 @@ public class CoinManager : MonoBehaviour
 
     public void AddCoins(int amount)
     {
-        Debug.Log($"Coins: {amount} gained");
+        //Debug.Log($"Coins: {amount} gained");
         totalCoins += amount;
     }
 

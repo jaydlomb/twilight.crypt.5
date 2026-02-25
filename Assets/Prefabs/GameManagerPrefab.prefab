@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5458667947634169183}
   - component: {fileID: 5619146085482078394}
   - component: {fileID: 2126080975497663715}
+  - component: {fileID: 9047055696316610859}
   m_Layer: 0
   m_Name: GameManagerPrefab
   m_TagString: Untagged
@@ -82,7 +83,7 @@ MonoBehaviour:
   upgradeData:
     healthLevel: 0
     resistanceLevel: 0
-  baseHealthPerLevel: 10
+  baseHealthPerLevel: 8
   baseResistancePerLevel: 1
   healthUpgradeCost: 50
   resistanceUpgradeCost: 75
@@ -119,3 +120,15 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+--- !u!114 &9047055696316610859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6460602559519720352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d06cb528ecef1bd4eae2ccf439187e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EventManager

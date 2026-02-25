@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         SetState(GameState.HomeBase);
-        Invoke("TestRun", 2f);
+        Invoke("TestRun", 1f);
     }
 
     //auto start game until home base UI is in

@@ -6,9 +6,9 @@ using UnityEngine;
 public abstract class Entity : MonoBehaviour
 {
     [Header("Stats")]
-    [SerializeField] protected float maxHealth;
-    [SerializeField] protected float currentHealth;
-    [SerializeField] protected int resistanceLevel;
+    protected float maxHealth;
+    protected float currentHealth;
+    protected int resistanceLevel;
 
     protected virtual void Start()
     {
