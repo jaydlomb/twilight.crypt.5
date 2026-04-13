@@ -1,6 +1,7 @@
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 /// <summary>
 /// UI for the 'Home base'
@@ -15,49 +16,44 @@ public class HomeBaseUI : MonoBehaviour
     [Header("Difficulty Selection")]
     [SerializeField] private TMP_Dropdown difficultyDropdown;
 
-    [Header("Upgrades")]
-    [SerializeField] private TextMeshProUGUI healthLevelText;
-    [SerializeField] private TextMeshProUGUI healthCostText;
-    [SerializeField] private Button healthUpgradeButton;
+    [Header("Upgrade Rows")]
+    [SerializeField] private GameObject upgradeRowPrefab;
+    [SerializeField] private Transform upgradeRowContainer;
 
-    [SerializeField] private TextMeshProUGUI resistanceLevelText;
-    [SerializeField] private TextMeshProUGUI resistanceCostText;
-    [SerializeField] private Button resistanceUpgradeButton;
+    private List<UpgradeRowUI> rows = new List<UpgradeRowUI>();
 
     private void OnEnable()
     {
-        RefreshUI();
+        if (CoinManager.Instance != null)
+            RefreshUI();
     }
 
     private void Start()
     {
-        // hook up buttons
         startRunButton?.onClick.AddListener(OnStartRunClicked);
-        healthUpgradeButton?.onClick.AddListener(OnHealthUpgradeClicked);
-        resistanceUpgradeButton?.onClick.AddListener(OnResistanceUpgradeClicked);
-
+        BuildUpgradeRows();
         PopulateDifficultyDropdown();
+        RefreshUI();
     }
 
-    private void RefreshUI()
+    private void BuildUpgradeRows()
     {
-        // update coin display
+        foreach (StatDefine stat in UpgradeManager.Instance.GetAllStats())
+        {
+            GameObject rowObj = Instantiate(upgradeRowPrefab, upgradeRowContainer);
+            UpgradeRowUI row = rowObj.GetComponent<UpgradeRowUI>();
+            row.Setup(stat, this);
+            rows.Add(row);
+        }
+    }
+
+    public void RefreshUI()
+    {
         if (coinText != null)
             coinText.text = $"Coins: {CoinManager.Instance.GetTotalCoins()}";
 
-        // update health info
-        if (healthLevelText != null)
-            healthLevelText.text = $"Health Level: {UpgradeManager.Instance.GetHealthLevel()}";
-
-        if (healthCostText != null)
-            healthCostText.text = $"Cost: {UpgradeManager.Instance.GetHealthUpgradeCost()}";
-
-        // update resistance info
-        if (resistanceLevelText != null)
-            resistanceLevelText.text = $"Resistance Level: {UpgradeManager.Instance.GetResistanceLevel()}";
-
-        if (resistanceCostText != null)
-            resistanceCostText.text = $"Cost: {UpgradeManager.Instance.GetResistanceUpgradeCost()}";
+        foreach (UpgradeRowUI row in rows)
+            row.Refresh();
 
         PopulateDifficultyDropdown();
     }
@@ -69,7 +65,7 @@ public class HomeBaseUI : MonoBehaviour
         if (difficultyDropdown == null) return;
 
         difficultyDropdown.ClearOptions();
-
+         
         int highestUnlocked = GameManager.Instance.GetHighestUnlockedDifficulty();
 
         for (int i = 1; i <= highestUnlocked; i++)
@@ -86,33 +82,5 @@ public class HomeBaseUI : MonoBehaviour
     {
         int selectedDifficulty = difficultyDropdown != null ? difficultyDropdown.value + 1 : 1;
         GameManager.Instance.StartRun(selectedDifficulty);
-    }
-
-    //attempt to upgrade health
-    private void OnHealthUpgradeClicked()
-    {
-        if (UpgradeManager.Instance.TryUpgradeHealth())
-        {
-            RefreshUI();
-            Debug.Log("Health upgraded!");
-        }
-        else
-        {
-            Debug.Log("Not enough coins for health upgrade!");
-        }
-    }
-
-    //attempt to upgrade resistance
-    private void OnResistanceUpgradeClicked()
-    {
-        if (UpgradeManager.Instance.TryUpgradeResistance())
-        {
-            RefreshUI();
-            Debug.Log("Resistance upgraded!");
-        }
-        else
-        {
-            Debug.Log("Not enough coins for resistance upgrade!");
-        }
     }
 }

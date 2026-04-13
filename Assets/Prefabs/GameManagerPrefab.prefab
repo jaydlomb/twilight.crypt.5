@@ -80,14 +80,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21b31b5797bf2ed4fb617089ddcfef61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeManager
-  upgradeData:
-    healthLevel: 0
-    resistanceLevel: 0
-  baseHealthPerLevel: 8
-  baseResistancePerLevel: 1
-  healthUpgradeCost: 50
-  resistanceUpgradeCost: 75
-  costIncreasePerLevel: 25
+  stats:
+  - {fileID: 11400000, guid: b103652cbf38a0442b411012e824cb2d, type: 2}
+  - {fileID: 11400000, guid: 8ff0abe2568b8d04ea2e69d9aaecf411, type: 2}
 --- !u!114 &5619146085482078394
 MonoBehaviour:
   m_ObjectHideFlags: 0

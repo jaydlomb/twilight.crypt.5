@@ -1,28 +1,20 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// Deals with player upgrades
-/// ready to add on more upgrades
 /// Current upgradable stats:
 /// - Health
 /// - Resistance Level
-/// Holds the current upgrade levels
 /// </summary>
 public class UpgradeManager : MonoBehaviour
 {
     public static UpgradeManager Instance { get; private set; }
 
-    [Header("Player Upgrades")]
-    [SerializeField] private PlayerUpgradeData upgradeData;
+    [Header("Stat Definitions")]
+    [SerializeField] private List<StatDefine> stats = new List<StatDefine>();
 
-    [Header("Base Stats")]
-    [SerializeField] private float baseHealthPerLevel = 10f;
-    [SerializeField] private int baseResistancePerLevel = 1;
-
-    [Header("Upgrade Costs")]
-    [SerializeField] private int healthUpgradeCost = 50;
-    [SerializeField] private int resistanceUpgradeCost = 75;
-    [SerializeField] private int costIncreasePerLevel = 25;
+    private Dictionary<string, int> statLevels = new Dictionary<string, int>();
 
     private void Awake()
     {
@@ -35,67 +27,50 @@ public class UpgradeManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        // init all stat levels to 1
+        foreach (StatDefine stat in stats)
+        {
+            statLevels[stat.statId] = 1;
+        }
     }
 
-    private void Start()
+    public bool TryUpgrade(string statId)
     {
-        //init
-        upgradeData.healthLevel = 1;
-        upgradeData.resistanceLevel = 1;
-    }
+        StatDefine stat = GetStat(statId);
+        if (stat == null) return false;
 
-    public bool TryUpgradeHealth()
-    {
-        int cost = GetHealthUpgradeCost();
+        int cost = GetUpgradeCost(statId);
         if (CoinManager.Instance.TrySpendCoins(cost))
         {
-            upgradeData.healthLevel++;
+            statLevels[statId]++;
             return true;
         }
         return false;
     }
-
-    public bool TryUpgradeResistance()
+    public int GetLevel(string statId)
     {
-        int cost = GetResistanceUpgradeCost();
-        if (CoinManager.Instance.TrySpendCoins(cost))
-        {
-            upgradeData.resistanceLevel++;
-            return true;
-        }
-        return false;
+        return statLevels.ContainsKey(statId) ? statLevels[statId] : 0;
     }
 
-    // cost of upgrade calculations
-    public int GetHealthUpgradeCost()
+    public float GetValue(string statId)
     {
-        return healthUpgradeCost + (costIncreasePerLevel * (upgradeData.healthLevel - 1));
+        StatDefine stat = GetStat(statId);
+        if (stat == null) return 0f;
+        return stat.baseValuePerLevel * GetLevel(statId);
     }
 
-    public int GetResistanceUpgradeCost()
+    public int GetUpgradeCost(string statId)
     {
-        return resistanceUpgradeCost + (costIncreasePerLevel * (upgradeData.resistanceLevel - 1));
+        StatDefine stat = GetStat(statId);
+        if (stat == null) return 0;
+        return stat.baseUpgradeCost + (stat.costIncreasePerLevel * (GetLevel(statId) - 1));
     }
 
-    // get stat values
-    public float GetPlayerMaxHealth()
+    public StatDefine GetStat(string statId)
     {
-        return baseHealthPerLevel * upgradeData.healthLevel;
+        return stats.Find(s => s.statId == statId);
     }
 
-    public int GetPlayerResistance()
-    {
-        return baseResistancePerLevel * upgradeData.resistanceLevel;
-    }
-
-    // getters for UI
-    public int GetHealthLevel() => upgradeData.healthLevel;
-    public int GetResistanceLevel() => upgradeData.resistanceLevel;
-}
-
-[System.Serializable]
-public struct PlayerUpgradeData
-{
-    public int healthLevel;
-    public int resistanceLevel;
+    public List<StatDefine> GetAllStats() => stats;
 }

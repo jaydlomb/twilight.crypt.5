@@ -30,11 +30,11 @@ public class PlayerEntity : Entity
     }
 
     //init
-    public void InitializeStats(float health, int resistance)
+    public void InitializeStats()
     {
-        maxHealth = health;
-        currentHealth = health;
-        resistanceLevel = resistance;
+        maxHealth = UpgradeManager.Instance.GetValue("health");
+        currentHealth = maxHealth;
+        resistanceLevel = (int)UpgradeManager.Instance.GetValue("resistance");
     }
 
     protected override void OnDeath()

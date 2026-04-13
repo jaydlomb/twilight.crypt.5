@@ -193,8 +193,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Coins: 0'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 443ea232b1188d84ca7f9ac617b55f97, type: 2}
+  m_sharedMaterial: {fileID: -8097419046478050189, guid: 443ea232b1188d84ca7f9ac617b55f97, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -319,7 +319,7 @@ MonoBehaviour:
   m_ChildAlignment: 2
   m_StartCorner: 1
   m_StartAxis: 0
-  m_CellSize: {x: 10, y: 10}
+  m_CellSize: {x: 8, y: 8}
   m_Spacing: {x: 50, y: 50}
   m_Constraint: 1
   m_ConstraintCount: 5
@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 3758264769238123520}
   - component: {fileID: 7407476013880314556}
   m_Layer: 5
-  m_Name: SurvivalTimer
+  m_Name: TimerText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -390,8 +390,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Time Left: 5s'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 443ea232b1188d84ca7f9ac617b55f97, type: 2}
+  m_sharedMaterial: {fileID: -8097419046478050189, guid: 443ea232b1188d84ca7f9ac617b55f97, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

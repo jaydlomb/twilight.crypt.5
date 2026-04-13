@@ -72,11 +72,8 @@ public class RunManager : MonoBehaviour
     private void SpawnPlayer()
     {
         currentPlayer = Instantiate(playerPrefab, playerSpawnPoint.position, Quaternion.identity);
+        currentPlayer.InitializeStats();
 
-        float playerHealth = UpgradeManager.Instance.GetPlayerMaxHealth();
-        int playerResistance = UpgradeManager.Instance.GetPlayerResistance();
-
-        currentPlayer.InitializeStats(playerHealth, playerResistance);
         allEntities.Add(currentPlayer);
 
         EventManager.Instance.PlayerSpawned(currentPlayer);
