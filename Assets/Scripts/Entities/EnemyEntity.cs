@@ -55,6 +55,11 @@ public class EnemyEntity : Entity
         }
 
         transform.position = pos;
+
+        if (moveDirection.x < 0)
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        else
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
     }
 
     protected override void OnDeath()

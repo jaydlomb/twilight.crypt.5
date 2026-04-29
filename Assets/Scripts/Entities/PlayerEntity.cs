@@ -24,6 +24,11 @@ public class PlayerEntity : Entity
     {
         Vector3 movement = new Vector3(moveInput.x, moveInput.y, 0f).normalized;
         transform.position += movement * moveSpeed * Time.deltaTime;
+
+        if (moveInput.x > 0)
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        else if (moveInput.x < 0)
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
     }
 
     private void HandleAttack()
