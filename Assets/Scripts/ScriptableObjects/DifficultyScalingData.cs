@@ -10,6 +10,8 @@ public class DifficultyScalingData : ScriptableObject
     public float enemyHealthPerDifficulty = 1f;
     public int baseEnemyResistance = 2;
     public int enemyResistancePerDifficulty = 1;
+    public float baseContactDamage = 1f;
+    public float contactDamagePerDifficulty = 0.5f;
 
     [Header("Air Poison")]
     public float basePoisonDamage = 0.5f;

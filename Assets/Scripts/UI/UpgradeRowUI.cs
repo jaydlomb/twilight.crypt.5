@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class UpgradeRowUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI nameText;
-    [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private TextMeshProUGUI costText;
     [SerializeField] private Button upgradeButton;
 
@@ -23,7 +23,6 @@ public class UpgradeRowUI : MonoBehaviour
 
     public void Refresh()
     {
-        levelText.text = $"Level: {UpgradeManager.Instance.GetLevel(statId)}";
         costText.text = $"Cost: {UpgradeManager.Instance.GetUpgradeCost(statId)}";
     }
 
@@ -31,6 +30,7 @@ public class UpgradeRowUI : MonoBehaviour
     {
         if (UpgradeManager.Instance.TryUpgrade(statId))
         {
+            upgradeButton.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 10, 1f);
             parentUI.RefreshUI();
         }
     }

@@ -1,46 +1,59 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-/// <summary>
-/// Player class used to control the player
-/// </summary>
 public class PlayerEntity : Entity
 {
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
 
+    [Header("Attack")]
+    [SerializeField] private SwordEntity sword;
+
     private Vector2 moveInput;
+    private float attackSpeed;
+    private float attackDamage;
+    private float attackTimer;
 
     private void Update()
     {
         HandleMovement();
+        HandleAttack();
     }
 
-    //handle movement with new input system
     private void HandleMovement()
     {
         Vector3 movement = new Vector3(moveInput.x, moveInput.y, 0f).normalized;
         transform.position += movement * moveSpeed * Time.deltaTime;
     }
 
-    //called by new input system
+    private void HandleAttack()
+    {
+        attackTimer -= Time.deltaTime;
+        if (attackTimer <= 0f)
+        {
+            attackTimer = attackSpeed;
+            sword.StartSwing(attackDamage);
+        }
+    }
+
     public void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
     }
 
-    //init
     public void InitializeStats()
     {
         maxHealth = UpgradeManager.Instance.GetValue("health");
         currentHealth = maxHealth;
         resistanceLevel = (int)UpgradeManager.Instance.GetValue("resistance");
+        attackDamage = UpgradeManager.Instance.GetValue("attackDamage");
+        attackSpeed = Mathf.Max(0.5f, 3f - (UpgradeManager.Instance.GetValue("attackSpeed") * 0.5f));
+        attackTimer = attackSpeed;
     }
 
     protected override void OnDeath()
     {
-        //tell game manager player died, run ended
+        CameraShake.Instance.Shake();
         GameManager.Instance.OnPlayerDeath();
-        gameObject.SetActive(false);
     }
 }

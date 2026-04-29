@@ -7,6 +7,8 @@ public class EventManager : MonoBehaviour
 
     //list of events
     public event Action<PlayerEntity> OnPlayerSpawned;
+    public event Action<float> OnPlayerDamaged;
+
 
     private void Awake()
     {
@@ -24,5 +26,10 @@ public class EventManager : MonoBehaviour
     public void PlayerSpawned(PlayerEntity player)
     {
         OnPlayerSpawned?.Invoke(player);
+    }
+
+    public void PlayerDamaged(float currentHealth)
+    {
+        OnPlayerDamaged?.Invoke(currentHealth);
     }
 }

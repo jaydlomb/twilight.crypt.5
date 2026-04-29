@@ -1,6 +1,7 @@
+using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 /// <summary>
 /// UI that pops up at the end of a run
@@ -15,6 +16,7 @@ public class RunEndUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI enemiesKilledText;
     [SerializeField] private TextMeshProUGUI timeSurvivedText;
     [SerializeField] private Button continueButton;
+    [SerializeField] private RectTransform infoPanel;
 
     private void Start()
     {
@@ -23,6 +25,10 @@ public class RunEndUI : MonoBehaviour
 
     public void ShowResults(bool won, RunStats stats)
     {
+        // slide in from top
+        infoPanel.anchoredPosition = new Vector2(0, 1080f);
+        infoPanel.DOAnchorPos(new Vector2(0, 288f), 0.6f).SetEase(Ease.OutBack);
+
         // win/loss?
         if (resultText != null)
         {

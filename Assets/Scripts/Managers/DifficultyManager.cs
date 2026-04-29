@@ -43,11 +43,18 @@ public class DifficultyManager : MonoBehaviour
         return scalingData.baseEnemyResistance + (scalingData.enemyResistancePerDifficulty * (difficulty - 1));
     }
 
+    // enemy damage on im[pact
+    public float GetContactDamage(int difficulty)
+    {
+        return scalingData.baseContactDamage + (scalingData.contactDamagePerDifficulty * (difficulty - 1));
+    }
+
     // "air poison" damage - will be changed for actual enemy attacking
     public float GetPoisonDamage()
     {
         return scalingData.basePoisonDamage;
     }
+
 
     // air poison tick speed
     public float GetPoisonTickInterval()

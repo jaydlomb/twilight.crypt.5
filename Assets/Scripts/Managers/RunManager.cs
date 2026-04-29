@@ -1,6 +1,7 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 /// <summary>
 /// Handles the logic after the player begins a run
@@ -83,6 +84,7 @@ public class RunManager : MonoBehaviour
     {
         int enemyCount = DifficultyManager.Instance.GetEnemyCount(currentDifficulty);
         float enemyHealth = DifficultyManager.Instance.GetEnemyHealth(currentDifficulty);
+        float contactDamage = DifficultyManager.Instance.GetContactDamage(currentDifficulty);
         int enemyResistance = DifficultyManager.Instance.GetEnemyResistance(currentDifficulty);
         int coinValue = DifficultyManager.Instance.GetCoinsPerEnemy(currentDifficulty);
 
@@ -92,7 +94,7 @@ public class RunManager : MonoBehaviour
             Transform spawnPoint = enemySpawnPoints[i % enemySpawnPoints.Length];
 
             EnemyEntity enemy = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
-            enemy.InitializeStats(enemyHealth, enemyResistance, coinValue);
+            enemy.InitializeStats(enemyHealth, enemyResistance, coinValue, contactDamage);
             allEntities.Add(enemy);
         }
     }
@@ -107,7 +109,7 @@ public class RunManager : MonoBehaviour
             yield return new WaitForSeconds(tickInterval);
 
             // Apply poison to all entities
-            foreach (Entity entity in allEntities)
+            foreach (Entity entity in allEntities.ToList())
             {
                 if (entity != null)
                 {
@@ -142,6 +144,10 @@ public class RunManager : MonoBehaviour
         currentRunStats.enemiesKilled++;
         currentRunStats.coinsEarned += DifficultyManager.Instance.GetCoinsPerEnemy(currentDifficulty);
     }
+    public void OnCoinCollected(int value)
+    {
+        currentRunStats.coinsEarned += value;
+    }
 
     //end run either a LOSS or a WIN, coins awarded both ways
     public void EndRun(bool won)
@@ -155,6 +161,13 @@ public class RunManager : MonoBehaviour
             currentRunStats.coinsEarned += DifficultyManager.Instance.GetCompletionBonus(currentDifficulty);
         }
 
+        // auto collect remaining coins
+        foreach (CoinPickup coin in FindObjectsByType<CoinPickup>(FindObjectsSortMode.None))
+        {
+            coin.Collect();
+        }
+
+        ClearEntities();
         StopAllCoroutines();
         GameManager.Instance.OnRunComplete(won, currentRunStats);
     }
