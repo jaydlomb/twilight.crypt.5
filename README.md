@@ -22,7 +22,8 @@ Current:
 - Run UI
 - Run End UI
 - Home Base UI
-- DOTWeen Animatinos
+- DOTWeen Animations
+
 Future:
 - Boss battles / Progression gates
 - Gamemodes
@@ -40,6 +41,5 @@ Future:
 ---
 ## Author
 Built by Jayden Lombardi for Game Programmers Portfolio class as a portfolio project demonstrating Unity UI/UX programming and DOTWween implementation.
-Started on: 
+Started on: 1/29/26
 Last Update: 4/28/26
----
